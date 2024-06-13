@@ -3,6 +3,7 @@
     <!-- Quick Links Navigation -->
     <div class="row mb-4">
       <div class="col-md-12">
+        <!-- this is the dashboard  -->
         <router-link to="/dashboard" class="btn btn-primary me-3">Home</router-link>
         <router-link v-if="userRole === 'admin'" to="/patients" class="btn btn-primary me-3">Manage Patients</router-link>
         <router-link v-if="userRole === 'admin'" to="/doctors" class="btn btn-primary me-3">Manage Doctors</router-link>
