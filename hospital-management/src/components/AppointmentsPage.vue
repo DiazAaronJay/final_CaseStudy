@@ -3,7 +3,7 @@
     <!-- Quick Links Navigation -->
     <div class="row mb-4">
       <div class="col-md-12">
-        <!-- this is the dashboard  -->
+        <!-- this is the dashboard according to its role  -->
         <router-link to="/dashboard" class="btn btn-primary me-3">Home</router-link>
         <router-link v-if="userRole === 'admin'" to="/patients" class="btn btn-primary me-3">Manage Patients</router-link>
         <router-link v-if="userRole === 'admin'" to="/doctors" class="btn btn-primary me-3">Manage Doctors</router-link>
@@ -11,6 +11,8 @@
         <router-link v-if="userRole === 'admin' || userRole === 'doctor' || userRole === 'patient'" to="/records" class="btn btn-primary me-3">View Medical Records</router-link>
       </div>
     </div>
+
+    <!-- manage appointments by admin  -->
     <div class="row justify-content-center">
       <div class="col-md-10">
         <div class="card shadow p-4">
@@ -41,6 +43,8 @@
               </tbody>
             </table>
           </div>
+
+          <!-- manage appointments by doctor  -->
           <div v-else-if="userRole === 'doctor'">
             <h3>My Appointments</h3>
             <table class="table">
@@ -79,6 +83,7 @@
             </table>
           </div>
           <div v-else>
+            <!-- manage appointments by the patient  -->
             <button v-if="userRole === 'patient'" class="btn btn-primary mb-3" @click="toggleAppointments">{{ showAppointments ? 'Book appointment' : 'My appointments' }}</button>
             <div v-if="showAppointments">
               <h3>My Appointments</h3>
@@ -117,6 +122,8 @@
               </table>
             </div>
             <div v-else>
+
+              <!-- manage appointments by patients by booking an appointment to the doctor  -->
               <h3>Book Appointment</h3>
               <form @submit.prevent="bookAppointment">
                 <div class="row mb-3">

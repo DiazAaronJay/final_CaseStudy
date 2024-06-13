@@ -16,6 +16,7 @@ class AppointmentController extends Controller
 
     public function index()
 {
+    // in index function has a user role for patients, doctors and admin
     $user = Auth::user();
     $role = $user->role;
 
@@ -32,8 +33,10 @@ class AppointmentController extends Controller
 
     public function store(Request $request)
     {
+        // authenticate the user to verify its role as a user 
         $user = Auth::user();
 
+        // vaidate data for doctors in appointments 
         $validatedData = $request->validate([
             'doctor_id' => [
                 'required',
@@ -45,6 +48,7 @@ class AppointmentController extends Controller
             'reason' => 'required|string',
         ]);
 
+        // vaidate data for appointments in users
         $appointment = Appointment::create([
             'patient_id' => $user->id,
             'doctor_id' => $validatedData['doctor_id'],
@@ -56,6 +60,7 @@ class AppointmentController extends Controller
         return response()->json($appointment, 201);
     }
 
+    // to update the user's appointment status with its doctor and patients
     public function update(Request $request, $id)
     {
         $appointment = Appointment::findOrFail($id);
@@ -80,6 +85,7 @@ class AppointmentController extends Controller
     }
     
 
+    // delete or cancel the appointment
     public function destroy($id)
     {
         $appointment = Appointment::findOrFail($id);
